@@ -1409,7 +1409,12 @@ ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
         @echo "Running releasetool"
         $(hide) $(TARGET_CUSTOM_RELEASETOOL)
 else
+	@echo -e ${CL_YLW}"Running releasetool..."${CL_RST}
+ ifeq ($(strip $(FORCE_PRECOMPILED_DALVIK)),)
 	$(hide) ./vendor/romfactory/tools/squisher
+ else
+	$(hide) ./vendor/romfactory/tools/squisher $(TARGET_BOARD_PLATFORM)
+ endif
 endif
 
 # -----------------------------------------------------------------
