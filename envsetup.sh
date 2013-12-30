@@ -473,13 +473,21 @@ function print_lunch_menu()
 
 function brunch()
 {
-    breakfast $*
-    if [ $? -eq 0 ]; then
-        time mka bacon
-    else
-        echo "No such item in brunch menu. Try 'breakfast'"
-        return 1
+    menu=$*
+    if [ "$2" == "-name" ]; then
+        menu=$1
+        export ROMFact=$3
     fi
+    for dish in ${menu}; do
+        echo $dish
+        breakfast $dish
+        if [ $? -eq 0 ]; then
+            time mka bacon
+        else
+            echo "No such item in brunch menu. Try 'breakfast'"
+            return 1
+        fi
+    done
     return $?
 }
 
@@ -503,7 +511,7 @@ function breakfast()
         echo "z$target" | grep -q "-"
         if [ $? -eq 0 ]; then
             # A buildtype was specified, assume a full device name
-            lunch $target
+            lunch ${target}
         else
             # This is probably just the AOKP model name
             lunch romfactory_$target-userdebug
