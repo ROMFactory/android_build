@@ -34,7 +34,6 @@ PRODUCT_PACKAGES := \
 	libwnndict \
 	TeleService \
 	PinyinIME \
-	Protips \
 	SoftKeyboard \
 	SystemUI \
 	Launcher2 \

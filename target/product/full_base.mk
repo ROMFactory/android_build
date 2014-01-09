@@ -31,6 +31,7 @@ PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
     NoiseField \
     PhaseBeam \
+    SunBeam\
     PhotoTable
 
 # Additional settings used in all AOSP builds
