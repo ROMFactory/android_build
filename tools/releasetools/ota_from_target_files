@@ -464,27 +464,13 @@ def WriteFullOTAPackage(input_zip, output_zip):
 #  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755)
 
   script.ShowProgress(0.2, 0)
+  script.Print("Welcome to ROMFactory!")
   script.Print("")
-  script.Print(" Team Horizon Presents...")
-  script.Print("") 
-  script.Print("____  __                        ______  _________ ")
-  script.Print("__  |/ /___________________________  / / /__  __ \ ")
-  script.Print("__    /_  _ \_  __ \  __ \_  __ \_  /_/ /__  / / / ")
-  script.Print("_    | /  __/  / / / /_/ /  / / /  __  / _  /_/ / ")
-  script.Print("/_/|_| \___//_/ /_/\____//_/ /_//_/ /_/  /_____/ ")
-  script.Print("                                                ")
-  script.Print("")
-  script.Print("Welcome to Xenon HD 4.4!")
-  script.Print("Prepare to broaden your horizons!")
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
     
-  script.Print("#######################################");
-  script.Print("#                                     #");
-  script.Print("#             Cleaning ...            #");
-  script.Print("#                                     #");
-  script.Print("#######################################");
+  script.Print("Cleaning ...")
 
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
@@ -496,14 +482,11 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   script.FormatPartition("/system")
   script.Mount("/system")
+  script.Print("Unpacking /system...")
   script.UnpackPackageDir("system", "/system")
-
+  script.Print("Copying /system...")
   symlinks = CopySystemFiles(input_zip, output_zip)
-  script.Print("#######################################");
-  script.Print("#                                     #");
-  script.Print("#        Symlinks & Permissions       #");
-  script.Print("#                                     #");
-  script.Print("#######################################");
+  script.Print("Symlinks & Permissions...");
   script.MakeSymlinks(symlinks)
 
   boot_img = common.GetBootableImage("boot.img", "boot.img",
@@ -514,17 +497,12 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   if OPTIONS.persist:
     script.RunPersist("restore")
-
+  script.Print("Flashing the kernel...")
   common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
   script.ShowProgress(0.2, 0)
 
   script.ShowProgress(0.2, 10)
-  script.Print("#######################################");
-  script.Print("#                                     #");
-  script.Print("#         Flashing the kernel         #");
-  script.Print("#                                     #");
-  script.Print("#######################################");
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 0)
