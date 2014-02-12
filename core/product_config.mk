@@ -185,7 +185,7 @@ all_product_configs := $(call get-product-makefiles,\
     $(SRC_TARGET_DIR)/product/AndroidProducts.mk)
 else
   ifneq ($(XENONHD_PRODUCT),)
-    all_product_configs := $(shell ls vendor/xenonhd/products/${XENONHD_PRODUCT}.mk)
+    all_product_configs := $(shell ls vendor/romfactory/products/${XENONHD_PRODUCT}.mk)
   else
     # Read in all of the product definitions specified by the AndroidProducts.mk
     # files in the tree.

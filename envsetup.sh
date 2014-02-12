@@ -491,7 +491,7 @@ function breakfast()
     XENONHD_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/xenonhd/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/romfactory/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -1428,7 +1428,7 @@ function mka() {
 function mbot() {
     unset LUNCH_MENU_CHOICES
     croot
-    ./vendor/xenonhd/bot/deploy.sh
+    ./vendor/romfactory/bot/deploy.sh
 }
 
 function mkapush() {
@@ -1531,7 +1531,7 @@ function taco() {
         breakfast $sauce
         if [ $? -eq 0 ]; then
             croot
-            ./vendor/xenonhd/bot/build_device.sh xenonhd_$sauce-userdebug $sauce
+            ./vendor/romfactory/bot/build_device.sh xenonhd_$sauce-userdebug $sauce
         else
             echo "No such item in brunch menu. Try 'breakfast'"
         fi
