@@ -65,8 +65,8 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^xenonhd_") ; then
-       XENONHD_PRODUCT=$(echo -n $1 | sed -e 's/^xenonhd_//g')
+    if (echo -n $1 | grep -q -e "^romfactory_") ; then
+       XENONHD_PRODUCT=$(echo -n $1 | sed -e 's/^romfactory_//g')
     else
        XENONHD_PRODUCT=
     fi
@@ -508,7 +508,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the XenonHD model name
-            lunch xenonhd_$target-userdebug
+            lunch romfactory_$target-userdebug
         fi
     fi
     return $?
@@ -1531,7 +1531,7 @@ function taco() {
         breakfast $sauce
         if [ $? -eq 0 ]; then
             croot
-            ./vendor/romfactory/bot/build_device.sh xenonhd_$sauce-userdebug $sauce
+            ./vendor/romfactory/bot/build_device.sh romfactory_$sauce-userdebug $sauce
         else
             echo "No such item in brunch menu. Try 'breakfast'"
         fi
